@@ -1,0 +1,11 @@
+- name: a play that runs entirely on the ansible host
+  hosts: all
+  gather_facts: False
+  tasks:
+  - name: ls
+    raw: scp remote/home/root/* root@{{ inventory_hostname }}:/home/root/
+    register: out
+    delegate_to: localhost
+
+  - debug: var=out.stdout_lines
+#    local_action: "scp {{ local }} root@{{ host }}:{{ remote }}"
