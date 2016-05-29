@@ -2,8 +2,20 @@
   hosts: all
   gather_facts: False
   tasks:
-  - name: ls
-    raw: scp remote/home/root/* root@{{ inventory_hostname }}:/home/root/
+  - name: install libc-bin
+    raw: scp -r /home/parapampa/dev/deb-utils/deb_libc-bin/*/ root@{{ inventory_hostname }}:/
+    register: out
+    delegate_to: localhost
+  - name: install rsync
+    raw: scp -r /home/parapampa/dev/deb-utils/deb_rsync/*/ root@{{ inventory_hostname }}:/
+    register: out
+    delegate_to: localhost
+  - name: configure shared libraries for rsync
+    raw: ldconfig -n /lib/arm-linux-gnueabi
+    register: out
+    delegate_to: localhost
+  - name: install python
+    raw: rsync -au /home/parapampa/dev/deb-utils/deb_python_2/*/ root@{{ inventory_hostname }}:/
     register: out
     delegate_to: localhost
 
