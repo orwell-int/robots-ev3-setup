@@ -1,0 +1,7 @@
+[submodule "deploy/germs"]
+	path = deploy/germs
+	url = https://github.com/dchilot/germs.git
+	branch = feature/cross-compile-and-merge
+[submodule "deploy/capture-video"]
+	path = deploy/capture-video
+	url = https://github.com/orwell-int/capture-video.git
