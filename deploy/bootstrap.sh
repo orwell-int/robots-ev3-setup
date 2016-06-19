@@ -17,9 +17,9 @@ echo "COMPILER_FOLDER=$COMPILER_FOLDER" >&2
 echo "DESTINATION_FOLDER=$DESTINATION_FOLDER" >&2
 if [ ! -e "$COMPILER_FOLDER" ] ; then
 	cd /tmp
-    wget https://sourcery.mentor.com/GNUToolchain/package4571/public/arm-none-linux-gnueabi/arm-2009q1-203-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
-    mkdir -p ${COMPILER_FOLDER}
-    tar -C ${COMPILER_FOLDER} --strip-components=1 -xjf arm-2009q1-203-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
+	wget https://sourcery.mentor.com/GNUToolchain/package4571/public/arm-none-linux-gnueabi/arm-2009q1-203-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
+	mkdir -p ${COMPILER_FOLDER}
+	tar -C ${COMPILER_FOLDER} --strip-components=1 -xjf arm-2009q1-203-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
 	sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0
 	cd -
 fi
