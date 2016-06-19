@@ -3,6 +3,7 @@ set -e
 root_dir=$PWD
 remote_home=$root_dir/remote/home/root/
 if [ -e "$remote_home/capture" ] ; then
+    echo "File capture already exists, abort." >&2
 	exit 0
 fi
 COMPILER_FOLDER=$1

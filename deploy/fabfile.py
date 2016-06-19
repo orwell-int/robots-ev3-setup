@@ -50,22 +50,25 @@ def check_host_name():
 @roles("robots")
 def push(force=False):
     folder = os.getcwd()
-    os.chdir("remote")
-    for sub in os.listdir(os.path.curdir):
-        for root, dirs, files in os.walk(sub, topdown=False):
-            for name in dirs:
-                print "copy folder:", (os.path.join(root, name))
-                cuisine.dir_ensure(os.path.join(os.path.sep, root, name))
-            for name in files:
-                path = os.path.join(root, name)
-                local_path = os.path.abspath(path)
-                path = os.path.join(os.path.sep, path)
-                if (force or (not cuisine.file_exists(path))):
-                    print "copy file - local_path = {} ; path = {}".format(
-                            local_path, path)
-                    local("scp {local} {user}@{host}:{remote}".format(
-                        remote=path,
-                        local=local_path,
-                        user=env.user,
-                        host=env.host_string))
+    try:
+        os.chdir("remote")
+        for sub in os.listdir(os.path.curdir):
+            for root, dirs, files in os.walk(sub, topdown=False):
+                for name in dirs:
+                    print "copy folder:", (os.path.join(root, name))
+                    cuisine.dir_ensure(os.path.join(os.path.sep, root, name))
+                for name in files:
+                    path = os.path.join(root, name)
+                    local_path = os.path.abspath(path)
+                    path = os.path.join(os.path.sep, path)
+                    if (force or (not cuisine.file_exists(path))):
+                        print "copy file - local_path = {} ; path = {}".format(
+                                local_path, path)
+                        local("scp {local} {user}@{host}:{remote}".format(
+                            remote=path,
+                            local=local_path,
+                            user=env.user,
+                            host=env.host_string))
+    except:
+        pass
     os.chdir(folder)
