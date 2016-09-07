@@ -1,0 +1,1 @@
+killall bluetoothd pand hciattach
