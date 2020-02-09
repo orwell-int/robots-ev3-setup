@@ -3,8 +3,6 @@ from fabric.api import local
 from fabric.api import env
 from fabric.api import roles
 import os
-from fabric.context_managers import cd
-from fabric.context_managers import lcd
 import cuisine
 
 
@@ -27,6 +25,13 @@ def set_hosts():
 
 
 set_hosts()
+
+
+@roles("robots")
+def just_configure_the_robots_already(force=False):
+    set_host_name()
+    push(force)
+    link_configuration(force)
 
 
 @roles("robots")
@@ -63,7 +68,7 @@ def push(force=False):
                     path = os.path.join(os.path.sep, path)
                     if (force or (not cuisine.file_exists(path))):
                         print "copy file - local_path = {} ; path = {}".format(
-                                local_path, path)
+                            local_path, path)
                         local("scp {local} {user}@{host}:{remote}".format(
                             remote=path,
                             local=local_path,
@@ -72,3 +77,12 @@ def push(force=False):
     except:
         pass
     os.chdir(folder)
+
+
+@roles("robots")
+def link_configuration(force=False):
+    host_name = host_names[env.host_string]
+    args = "-s"
+    if (force):
+        args += "nf"
+    run("ln " + args + " tank.config." + host_name + ".ini tank.config.ini")
