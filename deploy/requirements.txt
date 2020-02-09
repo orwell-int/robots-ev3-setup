@@ -1,5 +1,5 @@
 cuisine==0.7.12
 ecdsa==0.13
 Fabric==1.11.1
-paramiko==1.17.0
+paramiko==2.0.9
 pycrypto==2.6.1
